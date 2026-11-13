@@ -3,7 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carrollton Mid-Career Margin &amp; Common-Ground Matcher</title>
+    <title>Carrollton Mid-Career Margin &amp; Interest Matcher | City Station Fellowship</title>
+    <meta name="description" content="A free, low-pressure 3-minute margin diagnostic and indoor activity matcher for mid-career adults (ages 35–55) in Carrollton, GA meeting at City Station. Zero cost, no cooking, screen-free board games, book clubs, crafts, and roundtables.">
+
+    <!-- Structured Data for AI Search & Generative Engine Optimization (GEO) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Southern Hills Mid-Career Adult Fellowship",
+      "description": "A welcoming, zero-cost indoor community for adults ages 35–55 in Carrollton, Georgia featuring board games, bring-your-own-book clubs, crafts, music sessions, and practical life roundtables at City Station.",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "2115 Maple Street",
+        "addressLocality": "Carrollton",
+        "addressRegion": "GA",
+        "postalCode": "30117",
+        "addressCountry": "US"
+      },
+      "areaServed": ["Carrollton, GA", "Villa Rica, GA", "Bremen, GA", "Bowdon, GA", "Carroll County, GA"]
+    }
+    </script>
+
     <style>
         :root {
             --primary: #1e3a8a;
@@ -42,6 +63,17 @@
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
             padding: 32px;
             position: relative;
+        }
+
+        .context-pill {
+            display: inline-block;
+            background: #f1f5f9;
+            color: var(--text-muted);
+            font-size: 0.78rem;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin-bottom: 10px;
         }
 
         .header {
@@ -266,17 +298,6 @@
             font-size: 0.85rem;
             margin-bottom: 12px;
         }
-
-        .success-message {
-            display: none;
-            text-align: center;
-            padding: 24px 10px;
-        }
-
-        .success-message h2 {
-            color: var(--accent);
-            margin-bottom: 10px;
-        }
     </style>
 </head>
 <body>
@@ -284,8 +305,9 @@
     <div class="container">
         <div id="quiz-container">
             <div class="header">
+                <span class="context-pill">City Station • Carrollton, GA • Ages 35–55</span>
                 <h1>Mid-Career Margin &amp; Interest Matcher</h1>
-                <p>Find your weekly energy leaks and match with zero-cost indoor groups in Carrollton.</p>
+                <p>Explore zero-cost, screen-free indoor gatherings in Carrollton—no lectures, no cooking, and zero awkwardness.</p>
             </div>
 
             <div class="progress-bar">
@@ -367,7 +389,7 @@
                 </audio>
             </div>
 
-            <!-- Registration Form Connected to Web3Forms -->
+            <!-- Registration Form Connected to Web3Forms + Redirect to thank-you.html -->
             <div class="signup-form">
                 <h3>Lock In Your Spot &amp; Vote</h3>
                 <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 14px;">We group tables at City Station based on shared interests—completely free to attend, no meals to buy or cook.</p>
@@ -376,10 +398,9 @@
 
                 <form id="registrationForm" onsubmit="submitForm(event)">
                     <!-- Replace YOUR_WEB3FORMS_ACCESS_KEY with your actual key from web3forms.com -->
-                    <input type="hidden" name="access_key" value="d17aa7eb-5af0-4a81-851c-db472d37bba1">
+                    <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY">
                     <input type="hidden" name="subject" value="New City Station Mid-Career Interest Vote!">
                     <input type="hidden" name="from_name" value="Carrollton Margin Matcher">
-                    <!-- Bot honeypot protection -->
                     <input type="checkbox" name="botcheck" style="display: none;">
 
                     <!-- Structured Diagnostic Fields Sent to Your Inbox -->
@@ -408,13 +429,6 @@
                     <button type="submit" class="btn" id="submitBtn" style="margin-top: 8px;">Send Me the City Station Table Info</button>
                 </form>
             </div>
-        </div>
-
-        <!-- Success Screen -->
-        <div class="success-message" id="success-step">
-            <h2>Your Interests Have Been Logged!</h2>
-            <p style="color: var(--text-muted); margin-bottom: 16px;">Thanks for contributing your vote. We'll reach out shortly with the room and table schedule at City Station matched to your interests.</p>
-            <div id="receipt-box" style="background: #f1f5f9; padding: 14px; border-radius: 8px; font-size: 0.85rem; text-align: left; color: var(--text-main);"></div>
         </div>
     </div>
 
@@ -505,18 +519,12 @@
                 const result = await response.json();
 
                 if (response.status === 200) {
-                    const name = document.getElementById('fullName').value;
-                    const time = document.getElementById('preferredTime').value;
-                    const interests = selectedInterests.join(", ");
+                    const name = encodeURIComponent(document.getElementById('fullName').value);
+                    const time = encodeURIComponent(document.getElementById('preferredTime').value);
+                    const interests = encodeURIComponent(selectedInterests.join(", "));
 
-                    document.getElementById('quiz-container').style.display = 'none';
-                    document.getElementById('results-step').style.display = 'none';
-                    document.getElementById('success-step').style.display = 'block';
-
-                    document.getElementById('receipt-box').innerHTML = 
-                        `<strong>Name:</strong> ${name}<br>
-                         <strong>Preferred Window:</strong> ${time}<br>
-                         <strong>Matched City Station Interests:</strong> ${interests}`;
+                    // Redirect to the dedicated thank-you.html URL
+                    window.location.href = `thank-you.html?name=${name}&window=${time}&interests=${interests}`;
                 } else {
                     errorBanner.innerText = result.message || "Something went wrong. Please verify your Web3Forms Access Key.";
                     errorBanner.style.display = "block";
