@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Carrollton Mid-Career Margin Audit</title>
+    <title>Carrollton Mid-Career Margin &amp; Common-Ground Matcher</title>
     <style>
         :root {
             --primary: #1e3a8a;
@@ -36,12 +36,11 @@
 
         .container {
             width: 100%;
-            max-width: 600px;
+            max-width: 620px;
             background: var(--card-bg);
             border-radius: 12px;
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
             padding: 32px;
-            overflow: hidden;
             position: relative;
         }
 
@@ -51,7 +50,7 @@
         }
 
         .header h1 {
-            font-size: 1.5rem;
+            font-size: 1.45rem;
             color: var(--primary);
             margin-bottom: 8px;
         }
@@ -73,7 +72,7 @@
         .progress-fill {
             height: 100%;
             background: var(--accent);
-            width: 25%;
+            width: 20%;
             transition: width 0.3s ease;
         }
 
@@ -83,7 +82,7 @@
 
         .step.active {
             display: block;
-            animation: fadeIn 0.4s ease forwards;
+            animation: fadeIn 0.35s ease forwards;
         }
 
         @keyframes fadeIn {
@@ -94,25 +93,34 @@
         h2.question-title {
             font-size: 1.15rem;
             color: var(--text-main);
+            margin-bottom: 6px;
+        }
+
+        .question-sub {
+            font-size: 0.85rem;
+            color: var(--text-muted);
             margin-bottom: 16px;
         }
 
         .options-list {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 10px;
             margin-bottom: 24px;
         }
 
         .option-card {
             border: 2px solid var(--border);
             border-radius: 8px;
-            padding: 14px 16px;
+            padding: 13px 16px;
             cursor: pointer;
             transition: all 0.2s ease;
             background: #fff;
             font-size: 0.95rem;
             color: var(--text-main);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .option-card:hover {
@@ -125,6 +133,16 @@
             background: #f0fdfa;
             color: #115e59;
             font-weight: 600;
+        }
+
+        .check-indicator {
+            font-size: 0.85rem;
+            color: var(--accent);
+            display: none;
+        }
+
+        .option-card.selected .check-indicator {
+            display: inline;
         }
 
         .btn {
@@ -149,41 +167,45 @@
             cursor: not-allowed;
         }
 
-        /* Results styling */
-        .results-box {
-            text-align: left;
-        }
-
+        /* Results Styling */
         .score-badge {
             display: inline-block;
             background: #e0f2fe;
             color: #0369a1;
             padding: 6px 12px;
             border-radius: 20px;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            margin-bottom: 16px;
-        }
-
-        .results-box h2 {
-            font-size: 1.3rem;
-            color: var(--primary);
             margin-bottom: 12px;
         }
 
-        .results-box p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            margin-bottom: 20px;
+        .match-card {
+            background: #f0fdfa;
+            border-left: 4px solid var(--accent);
+            padding: 16px;
+            border-radius: 6px;
+            margin: 16px 0 20px 0;
+        }
+
+        .match-card h3 {
+            font-size: 1rem;
+            color: #115e59;
+            margin-bottom: 6px;
+        }
+
+        .match-card p {
+            font-size: 0.9rem;
+            color: #134e4a;
+            margin: 0;
         }
 
         .audio-container {
             background: #f1f5f9;
             border-radius: 8px;
             padding: 16px;
-            margin-bottom: 24px;
+            margin-bottom: 22px;
             text-align: center;
         }
 
@@ -204,13 +226,12 @@
             border: 1px solid var(--border);
             border-radius: 8px;
             padding: 20px;
-            margin-top: 20px;
         }
 
         .signup-form h3 {
             font-size: 1.05rem;
             color: var(--primary);
-            margin-bottom: 12px;
+            margin-bottom: 8px;
         }
 
         .form-group {
@@ -237,7 +258,7 @@
         .success-message {
             display: none;
             text-align: center;
-            padding: 24px;
+            padding: 24px 10px;
         }
 
         .success-message h2 {
@@ -251,141 +272,178 @@
     <div class="container">
         <div id="quiz-container">
             <div class="header">
-                <h1>Mid-Career Margin &amp; Momentum Audit</h1>
-                <p>A 3-minute diagnostic for navigating work, family, and life in Carrollton.</p>
+                <h1>Mid-Career Margin &amp; Interest Matcher</h1>
+                <p>Find your weekly energy leaks and match with zero-cost indoor groups in Carrollton.</p>
             </div>
 
             <div class="progress-bar">
                 <div class="progress-fill" id="progress"></div>
             </div>
 
-            <!-- Step 1 -->
+            <!-- Step 1: Friction -->
             <div class="step active" id="step-1">
                 <h2 class="question-title">1. Where is your energy leaking most right now?</h2>
+                <p class="question-sub">Select the single biggest drain on your week.</p>
                 <div class="options-list">
-                    <div class="option-card" onclick="selectOption(1, this)">Career workload &amp; professional pressure</div>
-                    <div class="option-card" onclick="selectOption(1, this)">Family responsibilities &amp; parenting demands</div>
-                    <div class="option-card" onclick="selectOption(1, this)">Financial planning &amp; everyday cost-of-living squeeze</div>
-                    <div class="option-card" onclick="selectOption(1, this)">Social isolation &amp; lack of genuine local community</div>
+                    <div class="option-card" onclick="selectSingle(1, this)">Career workload &amp; professional pressure <span class="check-indicator">✓</span></div>
+                    <div class="option-card" onclick="selectSingle(1, this)">Family responsibilities &amp; everyday household demands <span class="check-indicator">✓</span></div>
+                    <div class="option-card" onclick="selectSingle(1, this)">Financial squeeze &amp; inflation fatigue <span class="check-indicator">✓</span></div>
+                    <div class="option-card" onclick="selectSingle(1, this)">Social isolation &amp; lack of genuine local peers <span class="check-indicator">✓</span></div>
                 </div>
                 <button class="btn" id="next-1" disabled onclick="nextStep(2)">Continue</button>
             </div>
 
-            <!-- Step 2 -->
+            <!-- Step 2: Margin -->
             <div class="step" id="step-2">
-                <h2 class="question-title">2. How much "free margin" do you realistically have left each week?</h2>
+                <h2 class="question-title">2. How much realistic "free margin" do you have each week?</h2>
+                <p class="question-sub">Be honest—no judgment.</p>
                 <div class="options-list">
-                    <div class="option-card" onclick="selectOption(2, this)">Zero—completely depleted by Friday evening</div>
-                    <div class="option-card" onclick="selectOption(2, this)">1 to 3 hours of quiet time</div>
-                    <div class="option-card" onclick="selectOption(2, this)">4 to 7 hours of discretionary time</div>
-                    <div class="option-card" onclick="selectOption(2, this)">8+ hours, but lacking meaningful connection</div>
+                    <div class="option-card" onclick="selectSingle(2, this)">Almost zero—completely drained by Friday <span class="check-indicator">✓</span></div>
+                    <div class="option-card" onclick="selectSingle(2, this)">1 to 2 hours if the gathering is nearby and zero-prep <span class="check-indicator">✓</span></div>
+                    <div class="option-card" onclick="selectSingle(2, this)">3 to 5 hours of open time <span class="check-indicator">✓</span></div>
+                    <div class="option-card" onclick="selectSingle(2, this)">Plenty of time, just nowhere meaningful to go <span class="check-indicator">✓</span></div>
                 </div>
                 <button class="btn" id="next-2" disabled onclick="nextStep(3)">Continue</button>
             </div>
 
-            <!-- Step 3 -->
+            <!-- Step 3: Multi-Select Indoor Interests -->
             <div class="step" id="step-3">
-                <h2 class="question-title">3. What environment helps you recharge best?</h2>
-                <div class="options-list">
-                    <div class="option-card" onclick="selectOption(3, this)">Quiet personal reflection and reading</div>
-                    <div class="option-card" onclick="selectOption(3, this)">Structured discussion around practical life wisdom</div>
-                    <div class="option-card" onclick="selectOption(3, this)">Casual coffee, good food, and relaxed conversations</div>
-                    <div class="option-card" onclick="selectOption(3, this)">Active outdoor movement and fresh air</div>
+                <h2 class="question-title">3. Which zero-cost indoor activities sound appealing?</h2>
+                <p class="question-sub">Pick up to 3 things you'd actually enjoy doing indoors at City Station (no cooking or spending required).</p>
+                <div class="options-list" id="interest-options">
+                    <div class="option-card" onclick="toggleInterest(this, 'Board & Strategy Games')">Modern Board &amp; Strategy Games (Codenames, Trivia, Cards) <span class="check-indicator">✓</span></div>
+                    <div class="option-card" onclick="toggleInterest(this, 'Practical Life & Wisdom Roundtables')">Practical Life &amp; Biblical Wisdom Roundtables <span class="check-indicator">✓</span></div>
+                    <div class="option-card" onclick="toggleInterest(this, 'Book, Podcast & Idea Swaps')">"No-Homework" Book, Podcast &amp; Idea Swaps <span class="check-indicator">✓</span></div>
+                    <div class="option-card" onclick="toggleInterest(this, 'Music, Retro Tech & Hobby Show-and-Tell')">Music, Retro Tech &amp; Personal Hobby Show-and-Tell <span class="check-indicator">✓</span></div>
+                    <div class="option-card" onclick="toggleInterest(this, 'Career, Finance & Margin Brainstorms')">Career, Budgeting &amp; Stress-Relief Brainstorms <span class="check-indicator">✓</span></div>
                 </div>
                 <button class="btn" id="next-3" disabled onclick="nextStep(4)">Continue</button>
             </div>
 
-            <!-- Step 4 -->
+            <!-- Step 4: Conversation Style -->
             <div class="step" id="step-4">
-                <h2 class="question-title">4. What is your primary goal for your social life this season?</h2>
+                <h2 class="question-title">4. What social vibe helps you relax fastest?</h2>
+                <p class="question-sub">Helps us balance table seating naturally.</p>
                 <div class="options-list">
-                    <div class="option-card" onclick="selectOption(4, this)">Finding steady, local friends who get the mid-career grind</div>
-                    <div class="option-card" onclick="selectOption(4, this)">Balancing family sanity and personal growth</div>
-                    <div class="option-card" onclick="selectOption(4, this)">Exploring faith and timeless principles without preachy lectures</div>
-                    <div class="option-card" onclick="selectOption(4, this)">Joining a low-pressure community hub right here in town</div>
+                    <div class="option-card" onclick="selectSingle(4, this)">Doing an activity together (games/trivia) so talk flows naturally <span class="check-indicator">✓</span></div>
+                    <div class="option-card" onclick="selectSingle(4, this)">Small roundtable discussion (4–6 people) on a clear topic <span class="check-indicator">✓</span></div>
+                    <div class="option-card" onclick="selectSingle(4, this)">Mostly listening at first until I get comfortable <span class="check-indicator">✓</span></div>
+                    <div class="option-card" onclick="selectSingle(4, this)">1-on-1 or small-group coffee chat with zero agenda <span class="check-indicator">✓</span></div>
                 </div>
-                <button class="btn" id="next-4" disabled onclick="showResults()">View My Results</button>
+                <button class="btn" id="next-4" disabled onclick="generateMatch()">Analyze My Common-Ground Match</button>
             </div>
         </div>
 
         <!-- Results Screen -->
         <div class="step" id="results-step">
-            <div class="results-box">
-                <span class="score-badge">Audit Complete</span>
-                <h2>Your Margin Analysis</h2>
-                <p>Based on your responses, your greatest friction point is balancing high weekly demands with a lack of grounded, local peer community. You don't need another lecture or a packed calendar—you need a reliable hour of calm conversation with people in the exact same season of life.</p>
-                
-                <!-- Embedded Audio Player for welcome.mp3 -->
-                <div class="audio-container">
-                    <p>🎧 Listen to a quick 45-second note regarding your results:</p>
-                    <audio controls src="welcome.mp3">
-                        Your browser does not support the audio element.
-                    </audio>
-                </div>
+            <span class="score-badge">Common-Ground Profile Ready</span>
+            <h2 style="font-size: 1.3rem; color: var(--primary); margin-bottom: 8px;">Your City Station Activity Match</h2>
+            <p id="diagnostic-summary" style="color: var(--text-muted); font-size: 0.95rem;"></p>
 
-                <!-- Registration Form -->
-                <div class="signup-form">
-                    <h3>Join Us at City Station</h3>
-                    <p style="font-size: 0.85rem; margin-bottom: 14px;">The Southern Hills Mid-Career Fellowship meets locally at City Station in Carrollton. No pressure, zero awkwardness—just good coffee and real conversation.</p>
-                    
-                    <form id="registrationForm" onsubmit="submitForm(event)">
-                        <div class="form-group">
-                            <label for="fullName">Full Name</label>
-                            <input type="text" id="fullName" required placeholder="Enter your full name">
-                        </div>
-                        <div class="form-group">
-                            <label for="contactInfo">Email or Phone Number</label>
-                            <input type="text" id="contactInfo" required placeholder="name@email.com or phone">
-                        </div>
-                        <div class="form-group">
-                            <label for="preferredTime">Preferred Gathering Window</label>
-                            <select id="preferredTime">
-                                <option value="Thursday Evenings">Thursday Evenings</option>
-                                <option value="Saturday Mornings">Saturday Mornings</option>
-                                <option value="Flexible">Flexible / Either</option>
-                            </select>
-                        </div>
-                        <button type="submit" class="btn" style="margin-top: 8px;">Request Table Details</button>
-                    </form>
-                </div>
+            <div class="match-card">
+                <h3 id="matched-interests-title">Your Matched Indoor Tables:</h3>
+                <p id="matched-interests-body"></p>
+            </div>
+
+            <!-- Embedded Audio Player -->
+            <div class="audio-container">
+                <p>🎧 Listen to a quick 45-second note about how we keep things low-pressure:</p>
+                <audio controls src="welcome.mp3">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+
+            <!-- Registration Form -->
+            <div class="signup-form">
+                <h3>Lock In Your Spot &amp; Vote</h3>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 14px;">We group tables at City Station based on shared interests—completely free to attend, no meals to buy or cook.</p>
+                
+                <form id="registrationForm" onsubmit="submitForm(event)">
+                    <!-- Hidden field capturing their AI match profile -->
+                    <input type="hidden" id="matchProfileData" name="matchProfile">
+
+                    <div class="form-group">
+                        <label for="fullName">First &amp; Last Name</label>
+                        <input type="text" id="fullName" required placeholder="Enter your name">
+                    </div>
+                    <div class="form-group">
+                        <label for="contactInfo">Email or Mobile Number (for table details)</label>
+                        <input type="text" id="contactInfo" required placeholder="name@email.com or (770) 555-0199">
+                    </div>
+                    <div class="form-group">
+                        <label for="preferredTime">Best Indoor Gathering Window</label>
+                        <select id="preferredTime">
+                            <option value="Thursday Evenings (6:30 PM)">Thursday Evenings (6:30 PM)</option>
+                            <option value="Saturday Mornings (9:30 AM)">Saturday Mornings (9:30 AM)</option>
+                            <option value="Sunday Afternoons (3:00 PM)">Sunday Afternoons (3:00 PM)</option>
+                            <option value="Flexible">Flexible / Any of the above</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn" style="margin-top: 8px;">Send Me the City Station Table Info</button>
+                </form>
             </div>
         </div>
 
         <!-- Success Screen -->
         <div class="success-message" id="success-step">
-            <h2>You're All Set!</h2>
-            <p>Thank you for completing the audit. We have received your request and will reach out with the table details for our next gathering at City Station.</p>
+            <h2>Your Interests Have Been Logged!</h2>
+            <p style="color: var(--text-muted); margin-bottom: 16px;">Thanks for contributing your vote. We'll reach out shortly with the room and table schedule at City Station matched to your interests.</p>
+            <div id="receipt-box" style="background: #f1f5f9; padding: 14px; border-radius: 8px; font-size: 0.85rem; text-align: left; color: var(--text-main);"></div>
         </div>
     </div>
 
     <script>
-        const selections = {};
+        const singleAnswers = {};
+        let selectedInterests = [];
 
-        function selectOption(stepNumber, element) {
-            // Remove selected class from siblings
+        function selectSingle(stepNumber, element) {
             const parent = element.parentElement;
             parent.querySelectorAll('.option-card').forEach(card => card.classList.remove('selected'));
-            
-            // Add selected to clicked card
             element.classList.add('selected');
-            
-            // Store selection
-            selections[stepNumber] = element.innerText;
-            
-            // Enable next button
+            singleAnswers[stepNumber] = element.innerText.replace('✓', '').trim();
             document.getElementById(`next-${stepNumber}`).removeAttribute('disabled');
+        }
+
+        function toggleInterest(element, label) {
+            if (element.classList.contains('selected')) {
+                element.classList.remove('selected');
+                selectedInterests = selectedInterests.filter(item => item !== label);
+            } else {
+                if (selectedInterests.length >= 3) {
+                    alert("Please select up to 3 top indoor interests.");
+                    return;
+                }
+                element.classList.add('selected');
+                selectedInterests.push(label);
+            }
+            const nextBtn = document.getElementById('next-3');
+            if (selectedInterests.length > 0) {
+                nextBtn.removeAttribute('disabled');
+            } else {
+                nextBtn.setAttribute('disabled', 'true');
+            }
         }
 
         function nextStep(stepNumber) {
             document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
             document.getElementById(`step-${stepNumber}`).classList.add('active');
-            
-            // Update progress bar
-            const progressPercent = (stepNumber / 5) * 100;
-            document.getElementById('progress').style.width = `${progressPercent}%`;
+            document.getElementById('progress').style.width = `${(stepNumber / 4) * 100}%`;
         }
 
-        function showResults() {
+        function generateMatch() {
+            const friction = singleAnswers[1] || "weekly demands";
+            const vibe = singleAnswers[4] || "low-pressure conversation";
+            const interestsText = selectedInterests.join(" • ");
+
+            document.getElementById('diagnostic-summary').innerText = 
+                `You're navigating ${friction.toLowerCase()} and recharge best through ${vibe.toLowerCase()}. Rather than a generic lecture, we match you with local adults ages 35–55 who share your exact indoor interests.`;
+
+            document.getElementById('matched-interests-body').innerText = interestsText;
+
+            // Save summary to hidden input for form submission
+            document.getElementById('matchProfileData').value = 
+                `Friction: ${friction} | Interests: ${interestsText} | Vibe: ${vibe}`;
+
             document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
             document.getElementById('results-step').classList.add('active');
             document.getElementById('progress').style.width = '100%';
@@ -393,9 +451,18 @@
 
         function submitForm(event) {
             event.preventDefault();
+            const name = document.getElementById('fullName').value;
+            const time = document.getElementById('preferredTime').value;
+            const interests = selectedInterests.join(", ");
+
             document.getElementById('quiz-container').style.display = 'none';
             document.getElementById('results-step').style.display = 'none';
             document.getElementById('success-step').style.display = 'block';
+
+            document.getElementById('receipt-box').innerHTML = 
+                `<strong>Name:</strong> ${name}<br>
+                 <strong>Preferred Window:</strong> ${time}<br>
+                 <strong>Matched City Station Interests:</strong> ${interests}`;
         }
     </script>
 </body>
