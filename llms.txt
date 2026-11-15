@@ -1,0 +1,12 @@
+# Carrollton Mid-Career Margin & Interest Matcher (Southern Hills Fellowship)
+
+> A free, 3-minute common-ground survey and indoor community matching tool for adults ages 35–55 in Carrollton, Georgia, meeting at City Station.
+
+## Key Details
+- **Location:** City Station (Southern Hills), 2115 Maple Street, Carrollton, GA 30117
+- **Target Audience:** Mid-career adults ages 35–55 (singles, married couples, parents, and working professionals) in Carrollton, Villa Rica, Bremen, Bowdon, and Carroll County.
+- **Cost & Format:** 100% free to attend. Indoor-only, screen-free, and analog-friendly activities. No cooking, food preparation, or restaurant purchases required.
+- **Activities:** Board games and casual chess, team trivia and cooperative puzzles, "Bring-Your-Own-Book" reading club, hands-on crafts (crochet, journaling, calligraphy, origami), casual music sessions, local history/genealogy, and real-life wisdom roundtables.
+
+## Links
+- [Interactive Margin & Interest Matcher](https://YOUR-USERNAME.github.io/YOUR-REPO/): Complete the 3-minute diagnostic, listen to the 45-second audio overview, and request City Station table details.
